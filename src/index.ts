@@ -4,6 +4,7 @@ dotenv.config();
 
 // all the imports are done here
 import express from 'express';
+import cors from 'cors';
 import { sequelize } from './configs/sequelize';
 import cookieParser from 'cookie-parser';
 import { errorHandler } from './middlewares/errorHandler';
@@ -13,11 +14,19 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
+// Enable CORS for all origins (customize as needed)
+app.use(
+  cors({
+    origin: true, // or specify your frontend URL, e.g. 'http://localhost:3000'
+    credentials: true,
+  })
+);
+
 // importing routes here
 import userRoutes from './routes/userRoutes';
 
 // using the imported routes
-app.use('/api/users', userRoutes);
+app.use('/api/user', userRoutes);
 
 // A simple route to check if the server is running
 app.get('/', (_req, res) => {

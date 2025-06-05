@@ -3,6 +3,7 @@ import { sequelize } from '../configs/sequelize';
 
 interface UserAttributes {
   id: string;
+  EmployeeId: string; // Optional field for EmployeeId
   name: string;
   email: string;
   password: string;
@@ -17,6 +18,7 @@ type UserCreationAttributes = Optional<UserAttributes, 'id' | 'createdAt' | 'upd
 class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
   public id!: string;
   public name!: string;
+  public EmployeeId!: string; // Optional field for EmployeeId
   public email!: string;
   public password!: string;
   public role!: string;
@@ -36,6 +38,11 @@ User.init(
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    EmployeeId: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
     },
     email: {
       type: DataTypes.STRING,

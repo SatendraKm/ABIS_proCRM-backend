@@ -10,6 +10,7 @@ async function seed() {
     const users = await User.bulkCreate([
       {
         name: 'Ravi Sharma',
+        EmployeeId: '10007845',
         email: 'ravi@chickendelivery.com',
         password: passwordHash,
         role: 'admin',
@@ -17,6 +18,7 @@ async function seed() {
       },
       {
         name: 'Meena Rathi',
+        EmployeeId: '10005896',
         email: 'meena@chickendelivery.com',
         password: passwordHash,
         role: 'support',

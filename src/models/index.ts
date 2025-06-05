@@ -1,5 +1,4 @@
 import { sequelize } from '../configs/sequelize';
-
 import User from './User';
 import Customer from './Customer';
 import Order from './Order';
