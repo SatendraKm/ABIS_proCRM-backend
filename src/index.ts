@@ -24,9 +24,11 @@ app.use(
 
 // importing routes here
 import userRoutes from './routes/userRoutes';
+import customerRouter from './routes/customerRoutes';
 
 // using the imported routes
 app.use('/api/user', userRoutes);
+app.use('/api/customer', customerRouter);
 
 // A simple route to check if the server is running
 app.get('/', (_req, res) => {
