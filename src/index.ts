@@ -24,13 +24,19 @@ app.use(
 
 // importing routes here
 import userRoutes from './routes/userRoutes';
-import customerRouter from './routes/customerRoutes';
+import customerRoutes from './routes/customerRoutes';
+import orderRoutes from './routes/orderRoutes';
+import orderItemRoutes from './routes/OrderItemRoutes';
+import productRoutes from './routes/productRoutes';
 
 // using the imported routes
 app.use('/api/user', userRoutes);
-app.use('/api/customer', customerRouter);
+app.use('/api/customer', customerRoutes);
+app.use('/api/order', orderRoutes);
+app.use('/api/order-item', orderItemRoutes);
+app.use('/api/product', productRoutes);
 
-// A simple route to check if the server is running
+// A simple route to check if the server is runnin
 app.get('/', (_req, res) => {
   res.send('"ABIS-PRO CRM" Backend is running');
 });
