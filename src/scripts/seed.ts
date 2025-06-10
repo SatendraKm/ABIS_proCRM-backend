@@ -1,3 +1,5 @@
+import * as dotenv from 'dotenv';
+dotenv.config();
 import { sequelize } from '../configs/sequelize';
 import { User, Customer, Product, Order, OrderItem, Feedback, Enquiry, Promotion } from '../models';
 
