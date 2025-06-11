@@ -4,8 +4,8 @@ import { AppError } from '../utils/AppError';
 import jwt from 'jsonwebtoken';
 
 export const signup = async (req: Request, res: Response) => {
-  const { name, email, password, role, EmployeeId } = req.body;
-  if (!name || !EmployeeId || !password) {
+  const { name, email, password, role, EmployeeId, EmployeePhoneNumber } = req.body;
+  if (!name || !EmployeeId || !password || !EmployeePhoneNumber) {
     throw new AppError('Name, email, and password are required', 400);
   }
   const existingUser = await Users.findOne({ where: { EmployeeId } });
@@ -16,6 +16,7 @@ export const signup = async (req: Request, res: Response) => {
   const user = await Users.create({
     name,
     EmployeeId,
+    EmployeePhoneNumber,
     email,
     password,
     // password: hashedPassword,
@@ -24,7 +25,13 @@ export const signup = async (req: Request, res: Response) => {
   });
   res.status(201).json({
     message: 'User created',
-    user: { id: user.id, name: user.name, email: user.email, role: user.role },
+    user: {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      phone: user.EmployeePhoneNumber,
+    },
   });
 };
 

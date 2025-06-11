@@ -2,8 +2,9 @@ import { DataTypes, Model, Optional } from 'sequelize';
 import { sequelize } from '../configs/sequelize';
 
 interface UserAttributes {
-  id: string;
-  EmployeeId: string; // Optional field for EmployeeId
+  id: number; // Changed from string to number for auto-increment
+  EmployeeId: string;
+  EmployeePhoneNumber: string;
   name: string;
   email: string;
   password: string;
@@ -16,9 +17,10 @@ interface UserAttributes {
 type UserCreationAttributes = Optional<UserAttributes, 'id' | 'createdAt' | 'updatedAt'>;
 
 class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
-  public id!: string;
+  public id!: number; // Changed from string to number
   public name!: string;
-  public EmployeeId!: string; // Optional field for EmployeeId
+  public EmployeeId!: string;
+  public EmployeePhoneNumber!: string;
   public email!: string;
   public password!: string;
   public role!: string;
@@ -31,9 +33,10 @@ class User extends Model<UserAttributes, UserCreationAttributes> implements User
 User.init(
   {
     id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
+      type: DataTypes.INTEGER,
       primaryKey: true,
+      autoIncrement: true,
+      // Removed invalid defaultValue
     },
     name: {
       type: DataTypes.STRING,
@@ -43,6 +46,10 @@ User.init(
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+    },
+    EmployeePhoneNumber: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     email: {
       type: DataTypes.STRING,
@@ -59,7 +66,6 @@ User.init(
     role: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: 'agent', // or 'admin'
     },
     isActive: {
       type: DataTypes.BOOLEAN,

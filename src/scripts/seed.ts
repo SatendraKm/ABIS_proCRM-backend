@@ -13,6 +13,7 @@ async function seed() {
       {
         name: 'Ravi Sharma',
         EmployeeId: '10007845',
+        EmployeePhoneNumber: '5641689845',
         email: 'ravi@chickendelivery.com',
         password: passwordHash,
         role: 'admin',
@@ -21,6 +22,7 @@ async function seed() {
       {
         name: 'Meena Rathi',
         EmployeeId: '10005896',
+        EmployeePhoneNumber: '7891532145',
         email: 'meena@chickendelivery.com',
         password: passwordHash,
         role: 'support',
@@ -116,52 +118,52 @@ async function seed() {
     ]);
 
     // Create Feedback
-    await Feedback.bulkCreate([
-      {
-        customerId: customers[0].id,
-        orderId: orders[0].id,
-        rating: 5,
-        description: 'High quality chicken. Delivery was on time. Will reorder!',
-      },
-      {
-        customerId: customers[2].id,
-        orderId: orders[2].id,
-        rating: 4,
-        description: 'Good quality but packaging can be improved.',
-      },
-    ]);
+    // await Feedback.bulkCreate([
+    //   {
+    //     customerId: customers[0].id,
+    //     orderId: orders[0].id,
+    //     rating: 5,
+    //     description: 'High quality chicken. Delivery was on time. Will reorder!',
+    //   },
+    //   {
+    //     customerId: customers[2].id,
+    //     orderId: orders[2].id,
+    //     rating: 4,
+    //     description: 'Good quality but packaging can be improved.',
+    //   },
+    // ]);
 
-    // Create Enquiries
-    await Enquiry.bulkCreate([
-      {
-        customerId: customers[1].id,
-        subject: 'Late Delivery',
-        description: 'The last order took longer than expected.',
-        status: 'Open',
-        priority: 'Medium',
-        assignedTo: users[1].id,
-      },
-      {
-        customerId: customers[2].id,
-        subject: 'New Product Request',
-        description: 'Can you add chicken wings to the catalog?',
-        status: 'Open',
-        priority: 'Low',
-        assignedTo: users[1].id,
-      },
-    ]);
+    // // Create Enquiries
+    // await Enquiry.bulkCreate([
+    //   {
+    //     customerId: customers[1].id,
+    //     subject: 'Late Delivery',
+    //     description: 'The last order took longer than expected.',
+    //     status: 'Open',
+    //     priority: 'Medium',
+    //     assignedTo: users[1].id,
+    //   },
+    //   {
+    //     customerId: customers[2].id,
+    //     subject: 'New Product Request',
+    //     description: 'Can you add chicken wings to the catalog?',
+    //     status: 'Open',
+    //     priority: 'Low',
+    //     assignedTo: users[1].id,
+    //   },
+    // ]);
 
-    // Create Promotion
-    await Promotion.create({
-      promotionCode: 'CHICKENFEST10',
-      description: '10% off for customers ordering more than ₹2000 in last 5 orders',
-      discountPercentage: 10,
-      criteria: 'Total of last 5 orders >= ₹2000',
-      validFrom: new Date(),
-      validTo: new Date(new Date().setMonth(new Date().getMonth() + 1)),
-      customerId: customers[0].id,
-      isActive: true,
-    });
+    // // Create Promotion
+    // await Promotion.create({
+    //   promotionCode: 'CHICKENFEST10',
+    //   description: '10% off for customers ordering more than ₹2000 in last 5 orders',
+    //   discountPercentage: 10,
+    //   criteria: 'Total of last 5 orders >= ₹2000',
+    //   validFrom: new Date(),
+    //   validTo: new Date(new Date().setMonth(new Date().getMonth() + 1)),
+    //   customerId: customers[0].id,
+    //   isActive: true,
+    // });
 
     console.log('🐔 Seed data for Chicken Supply CRM created successfully!');
     process.exit(0);

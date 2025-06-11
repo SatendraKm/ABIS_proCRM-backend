@@ -2,8 +2,8 @@ import { DataTypes, Model, Optional } from 'sequelize';
 import { sequelize } from '../configs/sequelize';
 
 interface OrderAttributes {
-  id: string;
-  customerId: string;
+  id: number;
+  customerId: number;
   totalAmount: number;
   orderedAt: Date;
   shippingAddress?: string;
@@ -19,8 +19,8 @@ type OrderCreationAttributes = Optional<
 >;
 
 class Order extends Model<OrderAttributes, OrderCreationAttributes> implements OrderAttributes {
-  public id!: string;
-  public customerId!: string;
+  public id!: number;
+  public customerId!: number;
   public totalAmount!: number;
   public orderedAt!: Date;
   public shippingAddress?: string;
@@ -34,12 +34,12 @@ class Order extends Model<OrderAttributes, OrderCreationAttributes> implements O
 Order.init(
   {
     id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
+      type: DataTypes.INTEGER,
       primaryKey: true,
+      autoIncrement: true,
     },
     customerId: {
-      type: DataTypes.UUID,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     totalAmount: {

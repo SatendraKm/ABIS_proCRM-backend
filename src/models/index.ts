@@ -7,6 +7,7 @@ import Product from './Product';
 import Feedback from './Feedback';
 import Enquiry from './Enquiry';
 import Promotion from './Promotion';
+import CustomerFeedback from './CustomerFeedback';
 
 // Associations
 
@@ -42,4 +43,20 @@ Enquiry.belongsTo(User, { foreignKey: 'assignedTo', as: 'assignedUser' });
 Customer.hasMany(Promotion, { foreignKey: 'customerId' });
 Promotion.belongsTo(Customer, { foreignKey: 'customerId' });
 
-export { sequelize, User, Customer, Order, OrderItem, Product, Feedback, Enquiry, Promotion };
+CustomerFeedback.belongsTo(Customer, { foreignKey: 'customerId', as: 'customer' });
+CustomerFeedback.belongsTo(Order, { foreignKey: 'orderId', as: 'order' });
+
+Order.hasMany(CustomerFeedback, { foreignKey: 'orderId', as: 'feedbacks' });
+
+export {
+  sequelize,
+  User,
+  Customer,
+  Order,
+  OrderItem,
+  Product,
+  Feedback,
+  Enquiry,
+  Promotion,
+  CustomerFeedback,
+};

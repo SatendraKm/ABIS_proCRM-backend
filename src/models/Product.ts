@@ -2,7 +2,7 @@ import { DataTypes, Model, Optional } from 'sequelize';
 import { sequelize } from '../configs/sequelize';
 
 interface ProductAttributes {
-  id: string;
+  id: number;
   name: string;
   description?: string;
   price: number;
@@ -20,7 +20,7 @@ class Product
   extends Model<ProductAttributes, ProductCreationAttributes>
   implements ProductAttributes
 {
-  public id!: string;
+  public id!: number;
   public name!: string;
   public description?: string;
   public price!: number;
@@ -33,9 +33,9 @@ class Product
 Product.init(
   {
     id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
+      type: DataTypes.INTEGER,
       primaryKey: true,
+      autoIncrement: true,
     },
     name: {
       type: DataTypes.STRING,

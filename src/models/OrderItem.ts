@@ -2,9 +2,9 @@ import { DataTypes, Model, Optional } from 'sequelize';
 import { sequelize } from '../configs/sequelize';
 
 interface OrderItemAttributes {
-  id: string;
-  orderId: string;
-  productId: string;
+  id: number;
+  orderId: number;
+  productId: number;
   quantity: number;
   price: number;
   createdAt?: Date;
@@ -17,9 +17,9 @@ class OrderItem
   extends Model<OrderItemAttributes, OrderItemCreationAttributes>
   implements OrderItemAttributes
 {
-  public id!: string;
-  public orderId!: string;
-  public productId!: string;
+  public id!: number;
+  public orderId!: number;
+  public productId!: number;
   public quantity!: number;
   public price!: number;
 
@@ -30,16 +30,16 @@ class OrderItem
 OrderItem.init(
   {
     id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
+      type: DataTypes.INTEGER,
       primaryKey: true,
+      autoIncrement: true,
     },
     orderId: {
-      type: DataTypes.UUID,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     productId: {
-      type: DataTypes.UUID,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     quantity: {

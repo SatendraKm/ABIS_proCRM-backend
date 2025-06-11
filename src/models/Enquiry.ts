@@ -2,7 +2,7 @@ import { DataTypes, Model, Optional } from 'sequelize';
 import { sequelize } from '../configs/sequelize';
 
 interface EnquiryAttributes {
-  id: string;
+  id: number;
   customerId: string;
   subject: string;
   description: string;
@@ -19,7 +19,7 @@ class Enquiry
   extends Model<EnquiryAttributes, EnquiryCreationAttributes>
   implements EnquiryAttributes
 {
-  public id!: string;
+  public id!: number;
   public customerId!: string;
   public subject!: string;
   public description!: string;
@@ -34,12 +34,12 @@ class Enquiry
 Enquiry.init(
   {
     id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
+      type: DataTypes.INTEGER,
       primaryKey: true,
+      autoIncrement: true,
     },
     customerId: {
-      type: DataTypes.UUID,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     subject: {
@@ -61,7 +61,7 @@ Enquiry.init(
       defaultValue: 'Medium',
     },
     assignedTo: {
-      type: DataTypes.UUID,
+      type: DataTypes.INTEGER,
       allowNull: true,
     },
   },

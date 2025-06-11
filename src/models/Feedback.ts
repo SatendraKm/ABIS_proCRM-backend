@@ -2,9 +2,9 @@ import { DataTypes, Model, Optional } from 'sequelize';
 import { sequelize } from '../configs/sequelize';
 
 interface FeedbackAttributes {
-  id: string;
-  customerId: string;
-  orderId: string;
+  id: number;
+  customerId: number;
+  orderId: number;
   rating: number;
   description?: string;
   createdAt?: Date;
@@ -20,9 +20,9 @@ class Feedback
   extends Model<FeedbackAttributes, FeedbackCreationAttributes>
   implements FeedbackAttributes
 {
-  public id!: string;
-  public customerId!: string;
-  public orderId!: string;
+  public id!: number;
+  public customerId!: number;
+  public orderId!: number;
   public rating!: number;
   public description?: string;
 
@@ -33,16 +33,16 @@ class Feedback
 Feedback.init(
   {
     id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
+      type: DataTypes.INTEGER,
       primaryKey: true,
+      autoIncrement: true,
     },
     customerId: {
-      type: DataTypes.UUID,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     orderId: {
-      type: DataTypes.UUID,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     rating: {

@@ -41,8 +41,7 @@ class Promotion
 Promotion.init(
   {
     id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
+      type: DataTypes.INTEGER,
       primaryKey: true,
     },
     promotionCode: {
@@ -76,7 +75,7 @@ Promotion.init(
       allowNull: false,
     },
     customerId: {
-      type: DataTypes.UUID,
+      type: DataTypes.INTEGER,
       allowNull: true,
     },
     isActive: {

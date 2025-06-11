@@ -4,33 +4,42 @@ import { Order, OrderItem, Product, Customer } from '../models';
 
 export const getAllOrders = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const page = parseInt(req.query.page as string) || 1;
-    const limit = parseInt(req.query.limit as string) || 10;
-    const offset = (page - 1) * limit;
-
-    const status = req.query.status as string;
-    const customerId = req.query.customerId as string;
-    const from = req.query.from as string;
-    const to = req.query.to as string;
+    const { orderId, customerId, customerPhoneNo } = req.query;
 
     const where: any = {};
 
-    if (status) where.status = status;
-    if (customerId) where.customerId = customerId;
-    if (from && to) {
-      where.orderedAt = {
-        [Op.between]: [new Date(from), new Date(to)],
-      };
+    // Filter by orderId
+    if (orderId) {
+      where.id = Number(orderId);
     }
 
-    const { count, rows } = await Order.findAndCountAll({
+    // Filter by customerId
+    if (customerId) {
+      where.customerId = Number(customerId);
+    }
+
+    // If phone is provided, find customer first
+    if (customerPhoneNo && !customerId) {
+      const customer = await Customer.findOne({
+        where: { phone: customerPhoneNo as string },
+      });
+
+      if (!customer) {
+        return res.status(404).json({
+          success: false,
+          message: 'Customer with the given phone number not found',
+        });
+      }
+
+      where.customerId = customer.id;
+    }
+
+    const orders = await Order.findAll({
       where,
-      offset,
-      limit,
       include: [
         {
           model: Customer,
-          attributes: ['id', 'name', 'email', 'phone'],
+          attributes: ['name', 'email', 'phone'],
         },
         {
           model: OrderItem,
@@ -45,18 +54,10 @@ export const getAllOrders = async (req: Request, res: Response, next: NextFuncti
       order: [['orderedAt', 'DESC']],
     });
 
-    const totalPages = Math.ceil(count / limit);
-
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       data: {
-        orders: rows,
-        pagination: {
-          total: count,
-          page,
-          limit,
-          pages: totalPages,
-        },
+        orders,
       },
     });
   } catch (error) {
@@ -72,7 +73,7 @@ export const getOrderById = async (req: Request, res: Response, next: NextFuncti
       include: [
         {
           model: Customer,
-          attributes: ['id', 'name', 'email', 'phone', 'address'],
+          attributes: ['name', 'email', 'phone', 'address'],
         },
         {
           model: OrderItem,

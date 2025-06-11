@@ -34,6 +34,7 @@ import orderRoutes from './routes/orderRoutes';
 import orderItemRoutes from './routes/orderItemRoutes';
 import productRoutes from './routes/productRoutes';
 import callingRoutes from './routes/callingRoutes';
+import customerFeedbackRoutes from './routes/customerFeedbackRoutes';
 
 // using the imported routes
 app.use('/api/user', userRoutes);
@@ -42,6 +43,7 @@ app.use('/api/order', orderRoutes);
 app.use('/api/order-item', orderItemRoutes);
 app.use('/api/product', productRoutes);
 app.use('/api/calling', callingRoutes);
+app.use('/api/customer-feedback', customerFeedbackRoutes);
 
 app.get('/ping', (_req: Request, res: Response) => {
   res.send('pong');

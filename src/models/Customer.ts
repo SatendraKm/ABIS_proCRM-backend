@@ -2,7 +2,7 @@ import { DataTypes, Model, Optional } from 'sequelize';
 import { sequelize } from '../configs/sequelize';
 
 interface CustomerAttributes {
-  id: string;
+  id: number;
   name: string;
   email?: string;
   phone?: string;
@@ -18,7 +18,7 @@ class Customer
   extends Model<CustomerAttributes, CustomerCreationAttributes>
   implements CustomerAttributes
 {
-  public id!: string;
+  public id!: number;
   public name!: string;
   public email?: string;
   public phone?: string;
@@ -32,9 +32,9 @@ class Customer
 Customer.init(
   {
     id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
+      type: DataTypes.INTEGER,
       primaryKey: true,
+      autoIncrement: true,
     },
     name: {
       type: DataTypes.STRING,
